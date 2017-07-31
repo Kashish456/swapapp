@@ -1,0 +1,22 @@
+<!-- to load the style sheets -->
+{% extends 'firstapp/base.html' %}
+<title>{% block title %}Techies{% endblock %}</title>
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+                <div class="panel-default">
+                    <div class="panel-body">
+                        <form method="post" action="", class="form-horizontal" enctype="multipart/form-data">
+                            {% csrf_token %}
+                             <input type="text" name="username" placeholder="Username"/><br><br>
+                            <input type="password" name="password" placeholder="Password"/><br><br>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

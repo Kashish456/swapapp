@@ -1,0 +1,331 @@
+{% extends 'firstapp/base.html' %}
+{% block head %}
+  <script type="text/javascript">
+       function myFunction() {
+    document.getElementById("menu1").classList.toggle("show");
+}
+ $(document).ready(function() {
+  window.onclick = function (event) {
+      if (!event.target.matches('.btn btn-primary dropdown-toggle')) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+              }
+          }
+      }
+  }
+
+  $('#Link1').click(function(){
+
+              var chart = new CanvasJS.Chart("chartContainer",
+              {
+                  title: {
+                      text: "Share Value over a Year"
+                  },
+                  theme: "theme2",
+                  animationEnabled: true,
+                  axisX: {
+                      valueFormatString: "MMM"
+                  },
+                  axisY: {
+                      valueFormatString: "#0$"
+                  },
+                  data: [
+                      {
+                          type: "line",
+                          showInLegend: true,
+                          legendText: "Trend of US$-INR Currency Swap",
+                          dataPoints: [
+                              {
+                                  x: new Date(2012, 01, 1),
+                                  y: 91,
+                                  indexLabel: "gain",
+                                  markerType: "triangle",
+                                  markerColor: "green",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 02, 1),
+                                  y: 85,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 03, 1),
+                                  y: 70,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 04, 1),
+                                  y: 65,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 05, 1),
+                                  y: 55,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 06, 1),
+                                  y: 48,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 07, 1),
+                                  y: 38,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 08, 1),
+                                  y: 34,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 09, 1),
+                                  y: 14,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 10, 1),
+                                  y: 24,
+                                  indexLabel: "gain",
+                                  markerType: "triangle",
+                                  markerColor: "green",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 11, 1),
+                                  y: 30,
+                                  indexLabel: "gain",
+                                  markerType: "triangle",
+                                  markerColor: "green",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 12, 1),
+                                  y: 10,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              }
+                          ]
+                      }
+                  ]
+              });
+
+          chart.render();
+
+    });
+
+    $('#Link2').click(function(){
+
+              var chart = new CanvasJS.Chart("chartContainer",
+              {
+                  title: {
+                      text: "Share Value over a Year"
+                  },
+                  theme: "theme2",
+                  animationEnabled: true,
+                  axisX: {
+                      valueFormatString: "MMM"
+                  },
+                  axisY: {
+                      valueFormatString: "#0$"
+                  },
+                  data: [
+                      {
+                          type: "line",
+                          showInLegend: true,
+                          legendText: "Trend of US$-GBP Currency Swap",
+                          dataPoints: [
+                              {
+                                  x: new Date(2012, 01, 1),
+                                  y: 19,
+                                  indexLabel: "gain",
+                                  markerType: "triangle",
+                                  markerColor: "green",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 02, 1),
+                                  y: 15,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 03, 1),
+                                  y: 20,
+                                  indexLabel: "gain",
+                                  markerType: "triangle",
+                                  markerColor: "green",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 04, 1),
+                                  y: 35,
+                                  indexLabel: "gain",
+                                  markerType: "triangle",
+                                  markerColor: "green",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 05, 1),
+                                  y: 55,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 06, 1),
+                                  y: 48,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 07, 1),
+                                  y: 38,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 08, 1),
+                                  y: 34,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 09, 1),
+                                  y: 14,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 10, 1),
+                                  y: 24,
+                                  indexLabel: "gain",
+                                  markerType: "triangle",
+                                  markerColor: "green",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 11, 1),
+                                  y: 30,
+                                  indexLabel: "gain",
+                                  markerType: "triangle",
+                                  markerColor: "green",
+                                  markerSize: 12
+                              },
+                              {
+                                  x: new Date(2012, 12, 1),
+                                  y: 10,
+                                  indexLabel: "loss",
+                                  markerType: "cross",
+                                  markerColor: "red",
+                                  markerSize: 12
+                              }
+                          ]
+                      }
+                  ]
+              });
+
+          chart.render();
+
+    });
+   });
+</script>
+<style>
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.show {display:block;}
+</style>
+{% endblock %}
+{% block body %}
+    <div class="dropdown">
+    <button onlclick="myFunction()" class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">Top 2 Currency Swap in trend
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="Link1">US$-INR</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="Link2">US$-GBP</a></li>
+    </ul>
+  </div>
+     <div id="chartContainer" style="height: 300px; width: 100%;">
+    </div>
+{% endblock %}

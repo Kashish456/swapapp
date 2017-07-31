@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Techies{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstapp/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'firstapp/style1.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'firstapp/datepicker.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'firstapp/normalize.css' %}"/>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        $('.datepicker').datepicker({
+          inline: true,
+          dateFormat: 'yy-mm-dd',
+          showOtherMonths: true,
+          dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        });
+      });
+    </script>
+{% block head %}
+{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-inverse" style="background-color: black; border-radius: 0;">
+        <div class="container-fluid">
+            <!-- company name header-->
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#mynavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'firstapp:index' user.id %}">
+                        <img src="{% static 'firstapp/images/logo.jpg' %}" style="width: 40px; height: 40px; margin-top: 0%">
+                    </a>
+                    <a class="navbar-brand" href="{% url 'firstapp:index' user.id %}">Swaptions</a>
+                 {% else %}
+
+                        <img src="{% static 'firstapp/images/logo.jpg' %}" style="width: 40px; height: 40px;" />
+
+                        <span class="navbar-brand">Swaptions</<span class="navbar-brand">
+
+                {% endif %}
+            </div>
+            <!-- other nav items-->
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'firstapp:add-swap' %}">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;
+                            Add Swap Contract
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'firstapp:swapdetails' user.id %}">
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;
+                            View Swap Contract
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'firstapp:openswapdetails' %}">
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;
+                            View Open Swap Contract
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ user.username }}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{% url 'firstapp:logout' %}">
+                                <span aria-hidden="true"></span>&nbsp;
+                                Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'firstapp:login' %}">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;
+                            Login
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% block body %}
+{% endblock %}
+<footer class="footer">
+
+</footer>
+</body>
+</html>

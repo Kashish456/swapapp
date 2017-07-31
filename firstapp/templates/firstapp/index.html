@@ -1,0 +1,83 @@
+{% extends 'firstapp/base.html' %}
+{% block head %}
+<title>{% block title %}Index{% endblock %}</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+    // Build the chart
+    Highcharts.chart('chart_div', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Overall Trading  % of different Swaps'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true,
+                point: {
+                    events: {
+                        click: function () {
+
+                            location.href = this.options.url;
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Types',
+            colorByPoint: true,
+            data: [{
+                name: 'Interest Rate Swap',
+                y: 15
+            }, {
+                name: 'Commodity Swap',
+                y: 40,
+                sliced: true,
+                selected: true,
+                url: '{% url 'firstapp:commodityswap' %}'
+            }, {
+                name: 'Currency Swap',
+                y: 15,
+                url: '{% url 'firstapp:currencyswap' %}'
+            }, {
+                name: 'Derivative Swap',
+                y: 1,
+                url: '{% url 'firstapp:derivativeswap' %}'
+            }, {
+                name: 'Miscellaneous',
+                y: 20,
+                url: '{% url 'firstapp:miscellaneous' %}'
+            }]
+        }]
+    });
+});
+    </script>
+{% endblock %}
+{% block body %}
+    <div class="row" style="margin: 0px">
+        <div class="col-md-6">
+            <h1>Welcome user - {{ user.username }}</h1>
+        </div>
+        <div class="col-md-6">
+            <div id="chart_div"></div>
+        </div>
+    </div>
+{% endblock %}

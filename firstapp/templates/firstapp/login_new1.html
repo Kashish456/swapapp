@@ -1,0 +1,47 @@
+<head>
+    <title>{% block title %}Login{% endblock %}</title>
+    {% load staticfiles %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstapp/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'firstapp/style1.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'firstapp/datepicker.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'firstapp/normalize.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+</head>
+{% block body %}
+<div class="bg">
+<nav class="navbar navbar-inverse" style="opacity: 1; background-color: black">
+    <div class="container-fluid">
+            <!-- company name header-->
+            <div class="navbar-header">
+                    <img src="{% static "firstapp/images/logo.jpg" %}" style="width: 40px; height: 40px;"/>
+                    <span class="navbar-brand">Swaptions</span>
+            </div>
+    </div>
+</nav>
+    <div class="container">
+	<div class="signin">
+     	<form method="post" action="">
+            {% csrf_token %}
+	      	<input type="text" class="user" name="username" style="width: 100%" required="required"/>
+	      	<input type="password" class="pass" name="password" style="width: 100%" required="required"/>
+	      	<label>
+		  		<a href="{% url 'firstapp:register' %}" style="color: black">Not a member yet ? Register Here</a>
+		  	</label>
+            <label>
+		  		<a href="{% url 'firstapp:forgotpassword' %}" style="color: black">Forgot Password ?</a>
+		  	</label><br>
+            {% if login_form.non_field_errors %}
+                    {% for error in login_form.non_field_errors %}
+                        <strong class="text-danger">{{ error }}</strong>
+                    {% endfor %}
+            {% endif %}
+          	<input type="submit" value="LOGIN" style="text-decoration-color: black" />
+	 	</form>
+	</div>
+</div>
+</div>
+{% endblock %}

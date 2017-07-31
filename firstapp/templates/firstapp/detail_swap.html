@@ -1,0 +1,195 @@
+{% extends 'firstapp/base.html' %}
+<title>{% block title %}Employee Details{% endblock %}</title>
+{% block body %}
+    <div class="text-center">
+        <div class="row" style="margin: 0px">
+            <div class="col-md-3" style="margin-left: 20px">
+                <div class="thumbnail">
+                    <img src="{{ user.id }}" alt="Oops Image not found!!"><br>
+                    <p style="font-family: 'Britannic Bold'; font-size: larger;">{{ user.username }}<br>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-8" style="margin-left: 30px;">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div style="font-size: x-large;">
+                                Your Swap Contract
+                        </div>
+                        <table class="table">
+                            <thead style="text-align: center">
+                                <tr>
+                                    <th>Holder Name</th>
+                                    <th>Swap Contract Name</th>
+                                    <th>Swap Sector</th>
+                                    <th>Margin Money</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: left">
+                            {% for account in user.swapdetails_set.all %}
+                                <tr>
+                                    <td>
+                                        {{ account.swap_owner }}
+                                    </td>
+                                    <td>
+                                        {{ account.swap_name }}
+                                    </td>
+                                    <td>
+                                        {{ account.swap_sector }}
+                                    </td>
+                                    <td>
+                                        {{ account.swap_margin }}
+                                    </td>
+                                    {% if account.swap_counter_party == 0 %}
+                                    <td>
+                                        <form action="{% url 'firstapp:swapdelete' account.id %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="account_id" value="{{ account.id }}" />
+                                            <button type="submit" class="btn btn-danger btn-xs" name="delete">
+                                                <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                 </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div style="font-size: x-large;">
+                                In contract
+                        </div>
+                        <table class="table">
+                            <thead style="text-align: center">
+                                <tr>
+                                    <th>Holder Name</th>
+                                    <th>Requester Name</th>
+                                    <th>Swap Contract Name</th>
+                                    <th>Swap Type</th>
+                                    <th>Margin Money</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: left">
+                            {% for account in swap_user_pending %}
+                                {% if account.swap_status_request == 1 and account.swap_status_accept == 1 %}
+                                    {% if account.swap_owner_id == loggedin_user.id or account.swap_counter_party == loggedin_user.id %}
+                                <tr>
+                                    <td>
+                                        {{ account.swap_owner }}
+                                    </td>
+                                    {% for request_name in all_user %}
+                                        {% if request_name.id == account.swap_counter_party %}
+                                            <td>
+                                                {{ request_name.username }}
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td>
+                                        {{ account.swap_name }}
+                                    </td>
+                                    <td>
+                                        {{ account.swap_sector }}
+                                    </td>
+                                    <td>
+                                        {{ account.swap_margin }}
+                                    </td>
+                                    <td>
+                                        {{ account.swap_start_date }}
+                                    </td>
+                                    <td>
+                                        {{ account.swap_end_date }}
+                                    </td>
+                                    <td>
+                                        <form action="{% url 'firstapp:declinecontract' account.id %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="account_id" value="{{ account.id }}" />
+                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon-remove"></span>&nbsp; Withdraw
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                        {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div style="font-size: x-large;">
+                                Pending Contract Approval
+                        </div>
+                        <table class="table">
+                            <thead style="text-align: center">
+                                <tr>
+                                    <th>Holder Name</th>
+                                    <th>Requester Name</th>
+                                    <th>Swap Contract Name</th>
+                                    <th>Swap Type</th>
+                                    <th>Margin Money</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: left">
+                            {% for account in swap_user_pending %}
+                                {% if account.swap_status_request == 1 and account.swap_status_accept == 0 %}
+                                    {% if account.swap_owner_id == loggedin_user.id or account.swap_counter_party == loggedin_user.id %}
+                                <tr>
+                                    <td>
+                                        {{ account.swap_owner }}
+                                    </td>
+                                    {% for request_name in all_user %}
+                                        {% if request_name.id == account.swap_counter_party %}
+                                            <td>
+                                                {{ request_name.username }}
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <td>
+                                        {{ account.swap_name }}
+                                    </td>
+                                    <td>
+                                        {{ account.swap_sector }}
+                                    </td>
+                                    <td>
+                                        {{ account.swap_margin }}
+                                    </td>
+                                {% if account.swap_owner == request.user and account.swap_counter_party != request.user %}
+                                    <td>
+                                        <form action="{% url 'firstapp:acceptcontract' account.id %}" method="post" style="display: inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="account_id" value="{{ account.id }}" />
+                                            <button type="submit" class="btn btn-success btn-xs">
+                                                <span class="glyphicon glyphicon-remove"></span>&nbsp; Accept
+                                            </button>
+                                        </form>
+                                            <form action="{% url 'firstapp:declinecontract' account.id %}" method="post" style="display: inline;">
+                                                {% csrf_token %}
+                                            <input type="hidden" name="account_id" value="{{ account.id }}" />
+                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon-remove"></span>&nbsp; Decline
+                                            </button>
+                                        </form>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                        {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
